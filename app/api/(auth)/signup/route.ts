@@ -1,47 +1,48 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prismaClient';
 import { signupPayloadSchema } from '../../../../lib/schema';
-import { hashPassword } from '../../../../lib/password';
+import bcrypt from 'bcryptjs';
 
+// Handle POST requests to create a new user account
 export async function POST(request: NextRequest) {
-  const reqBody: unknown = await request.json();
-  const parsedBody = signupPayloadSchema.safeParse(reqBody);
+  // Parse the JSON request body
+  const reqBody = await request.json();
 
-  if (parsedBody.success === false) {
+  // Validate the request body using the Zod schema
+  const isDataCorrect = signupPayloadSchema.safeParse(reqBody);
+
+  // Return a 400 response if validation fails
+  if (isDataCorrect.success === false) {
     return NextResponse.json(
-      {
-        message: 'Invalid signup data.',
-      },
+      { message: 'UI Data not correct' },
       { status: 400 },
     );
   }
 
-  try {
-    const { name, email, password } = parsedBody.data;
-    const passwordHash = await hashPassword(password);
-    const user = await prisma.user.create({
-      data: { name, email, password: passwordHash },
-      select: { id: true, name: true, email: true, createdAt: true },
-    });
+  // Hash the user's password before storing it in the database
+  const hashedPassword = await bcrypt.hash(isDataCorrect.data.password, 12);
 
-    return NextResponse.json(
-      { message: 'Account created.', data: user },
-      { status: 201 },
-    );
-  } catch (error) {
-    const databaseError = error as { code?: string };
+  // Create a new user record in the database
+  const user = await prisma.user.create({
+    data: {
+      name: isDataCorrect.data.name,
+      email: isDataCorrect.data.email,
+      password: hashedPassword,
+    },
+  });
 
-    if (databaseError.code === 'P2002') {
-      return NextResponse.json(
-        { message: 'An account with this email already exists.' },
-        { status: 409 },
-      );
-    }
+  // Remove the password field before using or returning the user object
+  const { password, ...safeUser } = user;
 
-    console.error('Signup failed.', error);
-    return NextResponse.json(
-      { message: 'Unable to create account.' },
-      { status: 500 },
-    );
-  }
+  // Log the user information without the password
+  console.log(safeUser);
+
+  // Debug: Log the raw request body
+  // console.log('Request Body', reqBody);
+
+  // Return a success response
+  return NextResponse.json({
+    message: 'Backend: Received Data',
+    data: reqBody,
+  });
 }
