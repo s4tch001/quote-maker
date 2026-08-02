@@ -18,7 +18,7 @@ export default function LoginPage() {
       <Card className='w-full max-w-sm shadow-lg'>
         <CardHeader className='space-y-2 text-center'>
           <CardTitle className='text-2xl font-semibold tracking-tight'>
-            Welcome back
+            Quote Maker
           </CardTitle>
 
           <CardDescription>
@@ -91,7 +91,7 @@ export default function LoginPage() {
             Don&apos;t have an account?{' '}
             <Link
               href='/signup'
-              className='font-medium text-foreground underline-offset-4 hover:underline'
+              className='font-medium underline-offset-4 hover:underline text-indigo-600 hover:text-indigo-500'
             >
               Create an account
             </Link>

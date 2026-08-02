@@ -15,6 +15,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from '@/components/ui/toast';
+import Link from 'next/link';
 
 export default function Page() {
   /*
@@ -220,6 +221,17 @@ export default function Page() {
             >
               Submit
             </Button>
+            <div className='mt-4 text-center text-sm text-muted-foreground'>
+              Already have an account?{' '}
+              <Button variant='link' className='h-auto p-0'>
+                <Link
+                  href='/login'
+                  className='text-indigo-600 hover:text-indigo-500'
+                >
+                  Log in
+                </Link>
+              </Button>
+            </div>
           </form>
         </section>
       </div>
