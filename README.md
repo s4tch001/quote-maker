@@ -4,11 +4,11 @@ Quote Maker is a Next.js application for creating professional quotes and managi
 
 ## Tech Stack
 
-- Next.js 16.2.11
+- Next.js 16.2.12
 - React 19.2.4
 - TypeScript 5.9.3
 - Tailwind CSS 4
-- Prisma 7.9.0 with PostgreSQL
+- Prisma 7.9.1 with PostgreSQL
 - Base UI toast primitives
 - React Hook Form
 - Zod
@@ -83,6 +83,20 @@ npm run lint
 ```
 
 Runs ESLint for code quality checks.
+
+## Dependency Security
+
+Check the installed dependency tree against npm advisories:
+
+```bash
+npm audit
+```
+
+The `overrides` in `package.json` pin patched transitive versions used by
+Next.js and MCP development tooling. Keep them until the upstream packages no
+longer resolve vulnerable PostCSS, Sharp, or Hono releases. The lockfile also
+retains patched brace-expansion releases. After changing dependencies, run
+`npm audit`, `npm run lint`, and `npm run build` before committing the lockfile.
 
 ## Project Structure
 
