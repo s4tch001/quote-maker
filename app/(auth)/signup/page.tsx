@@ -59,10 +59,10 @@ export default function Page() {
   };
 
   return (
-    <main className='paper-grid relative min-h-[100svh] overflow-hidden px-4 py-5 text-foreground sm:px-8 sm:py-8 lg:px-12 lg:py-10'>
+    <main className='paper-grid relative min-h-svh overflow-hidden px-4 py-5 text-foreground sm:px-8 sm:py-8 lg:px-12 lg:py-10'>
       <div
         aria-hidden='true'
-        className='pointer-events-none absolute -right-48 -top-48 size-[34rem] rounded-full bg-secondary/75 blur-3xl'
+        className='pointer-events-none absolute -right-48 -top-48 size-136 rounded-full bg-secondary/75 blur-3xl'
       />
 
       <div className='relative mx-auto flex min-h-[calc(100svh-2.5rem)] w-full max-w-6xl flex-col lg:min-h-[calc(100svh-5rem)]'>
@@ -74,18 +74,19 @@ export default function Page() {
             height={44}
             priority
             sizes='44px'
-            className='size-11 object-contain drop-shadow-[0_7px_13px_oklch(0.249_0.052_260.11_/_0.15)]'
+            className='size-11 object-contain drop-shadow-[0_7px_13px_oklch(0.249_0.052_260.11/0.15)]'
           />
           <span className='font-heading text-lg font-bold tracking-[-0.015em]'>
             Quote Maker
           </span>
         </header>
 
-        <div className='grid flex-1 overflow-hidden rounded-3xl border border-border bg-card shadow-[0_22px_60px_oklch(0.249_0.052_260.11_/_0.09),0_2px_6px_oklch(0.249_0.052_260.11_/_0.05)] lg:grid-cols-[minmax(0,0.9fr)_minmax(430px,1fr)]'>
-          <aside className='relative hidden overflow-hidden bg-foreground p-12 text-card lg:flex lg:min-h-[760px] lg:flex-col xl:p-16'>
+        {/* Keep the desktop signup layout evenly split between the aside and form. */}
+        <div className='grid flex-1 overflow-hidden rounded-3xl border border-border bg-card shadow-[0_22px_60px_oklch(0.249_0.052_260.11/0.09),0_2px_6px_oklch(0.249_0.052_260.11/0.05)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]'>
+          <aside className='relative hidden overflow-hidden bg-foreground p-12 text-card lg:flex lg:min-h-190 lg:flex-col xl:p-16'>
             <div
               aria-hidden='true'
-              className='absolute -bottom-24 -right-24 size-72 rounded-full border border-white/15 shadow-[0_0_0_34px_oklch(1_0_0_/_0.06),0_0_0_72px_oklch(1_0_0_/_0.03)]'
+              className='absolute -bottom-24 -right-24 size-72 rounded-full border border-white/15 shadow-[0_0_0_34px_oklch(1_0_0/0.06),0_0_0_72px_oklch(1_0_0/0.03)]'
             />
             <div className='relative z-10 my-auto'>
               <p className='mb-4 font-mono text-[11px] font-bold tracking-[0.13em] text-white/60 uppercase'>
@@ -95,19 +96,19 @@ export default function Page() {
                 Send clearer business quotations.
               </h1>
               <p className='mt-6 max-w-[41ch] leading-7 text-pretty text-white/65'>
-                Prepare polished estimates with clear line items and totals
-                your clients can trust.
+                Prepare polished estimates with clear line items and totals your
+                clients can trust.
               </p>
             </div>
-              <p className='relative z-10 border-t border-white/20 pt-6 font-mono text-[11px] leading-5 tracking-[0.04em] text-white/65'>
+            <p className='relative z-10 border-t border-white/20 pt-6 font-mono text-[11px] leading-5 tracking-[0.04em] text-white/65'>
               One short path to your account, with a focused workflow for
               client-ready quotations.
             </p>
           </aside>
 
-          <section className='flex items-center bg-card px-5 py-10 sm:px-10 sm:py-14 lg:min-h-[760px] lg:px-14'>
+          <section className='flex items-center bg-card px-5 py-10 sm:px-10 sm:py-14 lg:min-h-190 lg:px-14'>
             <form
-              className='mx-auto w-full max-w-[430px]'
+              className='mx-auto w-full max-w-107.5'
               onSubmit={handleSubmit(FormSubmit)}
             >
               <p className='mb-4 font-mono text-[11px] font-bold tracking-[0.13em] text-muted-foreground uppercase lg:hidden'>
@@ -138,7 +139,7 @@ export default function Page() {
                   <p
                     id='name-error'
                     aria-live='polite'
-                    className='min-h-[18px] text-xs leading-[18px] font-bold text-destructive'
+                    className='min-h-4.5 text-xs leading-4.5 font-bold text-destructive'
                   >
                     {errors.name?.message}
                   </p>
@@ -161,7 +162,7 @@ export default function Page() {
                   <p
                     id='email-error'
                     aria-live='polite'
-                    className='min-h-[18px] text-xs leading-[18px] font-bold text-destructive'
+                    className='min-h-4.5 text-xs leading-4.5 font-bold text-destructive'
                   >
                     {errors.email?.message}
                   </p>
@@ -184,14 +185,17 @@ export default function Page() {
                   <p
                     id='password-error'
                     aria-live='polite'
-                    className='min-h-[18px] text-xs leading-[18px] font-bold text-destructive'
+                    className='min-h-4.5 text-xs leading-4.5 font-bold text-destructive'
                   >
                     {errors.password?.message}
                   </p>
                 </div>
 
                 <div className='grid gap-2'>
-                  <Label htmlFor='confirmPassword' className='text-sm font-bold'>
+                  <Label
+                    htmlFor='confirmPassword'
+                    className='text-sm font-bold'
+                  >
                     Confirm Password
                   </Label>
                   <Input
@@ -207,7 +211,7 @@ export default function Page() {
                   <p
                     id='confirm-password-error'
                     aria-live='polite'
-                    className='min-h-[18px] text-xs leading-[18px] font-bold text-destructive'
+                    className='min-h-4.5 text-xs leading-4.5 font-bold text-destructive'
                   >
                     {errors.confirmPassword?.message}
                   </p>
@@ -217,7 +221,7 @@ export default function Page() {
               <Button
                 type='submit'
                 size='lg'
-                className='mt-2 h-12 w-full rounded-xl border border-[#d59a2c] bg-accent font-bold text-accent-foreground shadow-[0_10px_22px_oklch(0.62_0.10_78.91_/_0.16)] hover:bg-[#e7a934] hover:text-accent-foreground active:bg-[#d99a27]'
+                className='mt-2 h-12 w-full rounded-xl border border-[#d59a2c] bg-accent font-bold text-accent-foreground shadow-[0_10px_22px_oklch(0.62_0.10_78.91/0.16)] hover:bg-[#e7a934] hover:text-accent-foreground active:bg-[#d99a27]'
               >
                 Submit
               </Button>

@@ -36,6 +36,16 @@ export const signupFormSchema = signupBaseSchema
  */
 export const signupPayloadSchema = signupBaseSchema;
 
+// Shared login validation runs in both the browser and the Auth.js server flow.
+export const loginSchema = z.object({
+  email: z
+    .email('Invalid email address')
+    .max(254)
+    .transform((value) => value.toLowerCase()),
+  // Bound the password input before it reaches bcrypt.
+  password: z.string().min(1, 'Password is required').max(128),
+});
+
 /*
 |--------------------------------------------------------------------------
 | TypeScript Types
@@ -45,3 +55,5 @@ export const signupPayloadSchema = signupBaseSchema;
 export type SignupForm = z.infer<typeof signupFormSchema>;
 
 export type SignupPayload = z.infer<typeof signupPayloadSchema>;
+
+export type LoginForm = z.infer<typeof loginSchema>;

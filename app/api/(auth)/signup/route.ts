@@ -32,10 +32,10 @@ export async function POST(request: NextRequest) {
   });
 
   // Remove the password field before using or returning the user object
-  const { password, ...safeUser } = user;
+  // const { password, ...safeUser } = user;
 
   // Log the user information without the password
-  console.log(safeUser);
+  console.log(user);
 
   // Debug: Log the raw request body
   // console.log('Request Body', reqBody);
